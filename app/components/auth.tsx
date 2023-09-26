@@ -2,7 +2,19 @@
 
 import useStore from '@/store'
 import supabase from '@/utils/supabase'
+import {
+  Box,
+  Button,
+  Center,
+  Flex,
+  FormControl,
+  FormLabel,
+  Heading,
+  Input,
+  Link,
+} from '@chakra-ui/react'
 import { ArrowRightOnRectangleIcon } from '@heroicons/react/24/solid'
+import { register } from 'module'
 import { useRouter } from 'next/navigation'
 import { FormEvent, useState } from 'react'
 
@@ -44,52 +56,56 @@ export default function Auth() {
     supabase.auth.signOut()
   }
   return (
-    <div className="flex flex-col items-center justify-center">
-      <p>{loginUser.email}</p>
-      <ArrowRightOnRectangleIcon
-        className="my-6 h-6 w-6 cursor-pointer text-blue-500"
-        onClick={signOut}
-      />
-      <form onSubmit={handleSubmit}>
-        <div>
-          <input
-            type="text"
-            required
-            className="my-2 border-gray-300 px-3 text-sm placeholder-gray-500 focus:outline-none"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => {
-              setEmail(e.target.value)
-            }}
-          />
-        </div>
-        <div>
-          <input
-            type="password"
-            required
-            className="my-2 border-gray-300 px-3 text-sm placeholder-gray-500 focus:outline-none"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => {
-              setPassword(e.target.value)
-            }}
-          />
-        </div>
-        <div className="my-6 flex justify-center text-sm">
-          <button
-            type="submit"
-            className="rounded-md bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700"
-          >
-            {isLogin ? 'Login' : 'Register'}
-          </button>
-        </div>
-      </form>
-      <p
-        onClick={() => setIsLogin(!isLogin)}
-        className="cursor-pointer font-medium hover:text-indigo-500"
+    <Flex>
+      <Box
+        boxShadow="lg"
+        w="600px"
+        paddingY="120px"
+        paddingX="32px"
+        borderRadius="8px"
+        border="1px solid"
+        borderColor="gray.100"
+        m="0 auto"
+        display="flex"
       >
-        change mode ?
-      </p>
-    </div>
+        <Box w="100%">
+          <Heading color="gray.800" mb="48px" textAlign="center" size="xl">
+            ようこそ
+          </Heading>
+          <form onSubmit={handleSubmit}>
+            <FormLabel fontWeight="bold">Eメール</FormLabel>
+            <Input
+              type="text"
+              size="lg"
+              mb="8"
+              placeholder="Email"
+              required
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value)
+              }}
+            />
+            <FormLabel fontWeight="bold">パスワード</FormLabel>
+            <Input
+              type="password"
+              size="lg"
+              mb="8"
+              required
+              placeholder="Password"
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value)
+              }}
+            />
+            <div>
+              <Button type="submit">
+                {isLogin ? 'Login' : 'Register'}
+              </Button>
+            </div>
+          </form>
+          <Button onClick={() => setIsLogin(!isLogin)}>change mode ?</Button>
+        </Box>
+      </Box>
+    </Flex>
   )
 }

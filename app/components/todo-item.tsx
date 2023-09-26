@@ -29,7 +29,7 @@ export default function TodoItem(todo: Todo) {
         checked={todo.completed}
         onChange={(e) => updateMutate(todo.id, !todo.completed)}
       />
-      <Link href={`auth/todo-crud/${todo.id}`}>{todo.title}</Link>
+      <Link href={`/todo-crud/${todo.id}`}>{todo.title}</Link>
       <div className="float-right ml-20 flex">
         <PencilIcon
           className="mx-1 h-5 w-5 cursor-pointer text-blue-500"
